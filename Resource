@@ -1,0 +1,85 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "The Obsessed (Resource)",
+    "description": "Horror resource pack inspired by The Obsessed",
+    "uuid": "44444444-4444-4444-4444-444444444444",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 20, 50]
+  },
+  "modules":[{"type":"resources","uuid":"55555555-5555-5555-5555-555555555555","version":[1,0,0]}]
+}
+{
+  "format_version":"1.10.0",
+  "minecraft:client_entity":{
+    "description":{
+      "identifier":"the_obsessed:obsessed",
+      "materials":{"default":"entity_alphatest"},
+      "textures":{"default":"textures/entity/obsessed"},
+      "geometry":{"default":"geometry.obsessed"},
+      "animations":{
+        "idle":"animation.obsessed.idle",
+        "walk":"animation.obsessed.walk",
+        "twitch":"animation.obsessed.twitch"
+      },
+      "animation_controllers":[{"controller.animation.obsessed":"1.0"}],
+      "render_controllers":["controller.render.default"]
+    }
+  }
+}
+{
+  "format_version":"1.8.0",
+  "animations":{
+    "animation.obsessed.idle":{
+      "loop":true,
+      "bones":{
+        "body":{"rotation":["Math.sin(query.life_time*4)*1.5",0,0]},
+        "head":{"rotation":["Math.sin(query.life_time*3)*1",0,0]}
+      }
+    }
+  }
+}
+{
+  "format_version":"1.8.0",
+  "animations":{
+    "animation.obsessed.walk":{
+      "loop":true,
+      "bones":{
+        "left_leg":{"rotation":["Math.sin(query.walk_position*6)*25",0,0]},
+        "right_leg":{"rotation":["Math.sin(query.walk_position*6+3.14)*25",0,0]},
+        "left_arm":{"rotation":["Math.sin(query.walk_position*6+3.14)*15",0,0]},
+        "right_arm":{"rotation":["Math.sin(query.walk_position*6)*15",0,0]}
+      }
+    }
+  }
+}
+{
+  "format_version":"1.8.0",
+  "animations":{
+    "animation.obsessed.twitch":{
+      "loop":false,
+      "animation_length":0.2,
+      "bones":{
+        "head":{"rotation":[20,0,0]},
+        "body":{"rotation":[-10,0,0]}
+      }
+    }
+  }
+}
+{
+  "format_version":"1.10.0",
+  "animation_controllers":{
+    "controller.animation.obsessed":{
+      "initial_state":"idle",
+      "states":{
+        "idle":{"animations":["animation.obsessed.idle"],"transitions":[{"walking":"query.modified_move_speed>0.01"},{"twitch":"Math.random()<0.002"}]},
+        "walking":{"animations":["animation.obsessed.walk"],"transitions":[{"idle":"query.modified_move_speed<0.01"},{"twitch":"Math.random()<0.002"}]},
+        "twitch":{"animations":["animation.obsessed.twitch"],"transitions":[{"idle":"query.life_time>0.2"}]}
+      }
+    }
+  }
+}
+{
+  "obsessed.breathing":{"sounds":["sounds/breathing"]},
+  "obsessed.whisper":{"sounds":["sounds/whisper"]}
+}
